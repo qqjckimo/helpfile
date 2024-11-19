@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html style="opacity: 0.5">
+  <head> </head>
+  <body>
+    <button onclick="onClickClose()">close</button>
+    <h1>moduleId: <span id="mid"></span></h1>
+    <h1>clientId: <span id="cid"></span></h1>
+    <h1>gameName: <span id="gameName"></span></h1>
+    <h1>RTP: <span id="rtp"></span></h1>
+  </body>
+  <script>
+    function onClickClose() {
+      window.parent.postMessage(
+        { Type: "REQUEST", Name: "close_application" },
+        "*"
+      );
+    }
+    const RtpTable = {
+      10148550300: 50.01,
+      10148540300: 40.01,
+      10057640300: 99.99,
+      10057650300: 0.09,
+    };
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById("mid").textContent = urlParams.get("moduleid");
+    document.getElementById("cid").textContent = urlParams.get("clientid");
+    document.getElementById("gameName").textContent = urlParams.get("gameid");
+    document.getElementById("rtp").textContent =
+      RtpTable[urlParams.get("cshid")];
+  </script>
+</html>
