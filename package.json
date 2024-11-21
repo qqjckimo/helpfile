@@ -1,0 +1,29 @@
+{
+  "name": "helpfile",
+  "version": "1.0.0",
+  "description": "POC of the general helpfiles",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qqjckimo/helpfile.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qqjckimo/helpfile/issues"
+  },
+  "homepage": "https://github.com/qqjckimo/helpfile#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "html-minifier-terser": "^7.2.0",
+    "javascript-obfuscator": "^4.1.1",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0"
+  }
+}

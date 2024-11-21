@@ -8,28 +8,30 @@
       /* General Styling */
       body {
         font-family: "Helvetica Neue", sans-serif;
-        background-color: transparent; /* 使背景透明 */
+
+        background-color: transparent; /* Make the background transparent */
         color: #2c2c2c;
         margin: 20px;
         padding: 0;
         line-height: 1.8;
-        position: relative; /* 为伪元素定位 */
+        position: relative; /* Position the pseudo-element */
       }
 
       body::before {
         content: "";
-        position: fixed; /* 固定在视口 */
+        position: fixed; /* Fixed position */
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
-        z-index: 0; /* 放置在最底层 */
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        z-index: 0; /* Place on the bottom layer */
       }
 
+      /* Game Name and Close Icon Styling */
       .container {
-        position: relative; /* 确保内容在伪元素上方 */
-        z-index: 1; /* 提升容器层级 */
+        position: relative; /* Ensure content is above pseudo-element */
+        z-index: 1; /* Place on top layer */
         max-width: 900px;
         margin: 30px auto;
         padding: 30px;
@@ -37,6 +39,35 @@
         border-radius: 8px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         overflow: hidden;
+      }
+
+      /* Header Styling */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px 20px 20px 0px;
+      }
+
+      .header .game-name {
+        font-weight: 500; /* Medium font weight */
+        margin: 0;
+        color: #3498db;
+        display: flex;
+        align-items: center;
+        font-size: 2.4rem;
+      }
+
+      .header .close-icon {
+        color: #7f8c8d;
+        cursor: pointer;
+        align-items: center;
+        font-size: 2.4rem;
+      }
+
+      .header .close-icon:hover {
+        color: #2c3e50;
       }
 
       /* Header */
@@ -89,8 +120,8 @@
         display: inline-block;
         margin-top: 30px;
         padding: 10px 20px;
-        background-color: #f8d7da; /* 淡紅色背景 */
-        color: #721c24; /* 深紅色文字 */
+        background-color: #f8d7da; /* Light red background */
+        color: #721c24; /* Dark red text */
         font-size: 1rem;
         font-weight: 500;
         border: none;
@@ -100,33 +131,25 @@
       }
 
       .exit-button:hover {
-        background-color: #f5c6cb; /* 稍微加深的淡紅色 */
-        color: #491217; /* 更深的紅色文字 */
+        background-color: #f5c6cb; /* Slightly deeper light red */
+        color: #491217; /* Deeper red text */
       }
-
-      /* Close Icon */
-      .close-icon {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 2.5rem;
-        color: #7f8c8d;
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
-
-      .close-icon:hover {
-        color: #2c3e50;
-      }
-
       /* Responsive Design */
       @media (max-width: 768px) {
         .container {
           padding: 20px;
         }
 
-        h1 {
+        .header .game-name {
           font-size: 2rem;
+        }
+
+        .header .close-icon {
+          font-size: 2rem;
+        }
+
+        h1 {
+          font-size: 1.8rem;
         }
 
         h2 {
@@ -142,14 +165,56 @@
           width: 100%;
         }
       }
+
+      @media (max-width: 480px) {
+        body {
+          margin: 20px 5px;
+        }
+        .container {
+          padding: 20px 10px;
+          margin: 30px 5px;
+        }
+
+        .header .game-name {
+          font-size: 0.8rem; /* Shrink the font size of the game name */
+        }
+
+        .header .close-icon {
+          font-size: 1rem; /* Shrink the font size of the close button */
+        }
+
+        h1 {
+          font-size: 0.9rem; /* Shrink the font size of the main title */
+        }
+
+        h2 {
+          margin-top: 20px;
+          font-size: 0.7rem; /* Shrink the font size of the sub-title */
+        }
+
+        p {
+          font-size: 0.45rem; /* Shrink the font size of the paragraph */
+        }
+
+        ul li {
+          font-size: 0.45rem; /* Shrink the font size of the list item */
+          margin-bottom: 0px;
+        }
+
+        .exit-button {
+          font-size: 0.45rem; /* Shrink the font size of the button text */
+          padding: 8px 16px; /* Adjust the button padding */
+          margin-top: 10px;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- Close Icon -->
-      <span class="close-icon" onclick="onClickClose()">&times;</span>
-
-      <h1><span name="gameName"></span></h1>
+      <div class="header">
+        <span class="game-name" name="gameName"></span>
+        <span class="close-icon" onclick="onClickClose()">&times;</span>
+      </div>
 
       <h2>Game Overview</h2>
       <p>
