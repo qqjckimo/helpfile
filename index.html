@@ -3,24 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><span id="gameName"></span> - Help Files</title>
+    <title><span name="gameName"></span> - Help Files</title>
     <style>
       /* General Styling */
       body {
         font-family: "Helvetica Neue", sans-serif;
-        background-color: #f4f4f9;
-        color: #2c3e50;
-        margin: 0;
+        background-color: transparent; /* 使背景透明 */
+        color: #2c2c2c;
+        margin: 20px;
         padding: 0;
-        line-height: 1.6;
+        line-height: 1.8;
+        position: relative; /* 为伪元素定位 */
       }
 
-      /* Container for the Help Files */
+      body::before {
+        content: "";
+        position: fixed; /* 固定在视口 */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+        z-index: 0; /* 放置在最底层 */
+      }
+
       .container {
+        position: relative; /* 确保内容在伪元素上方 */
+        z-index: 1; /* 提升容器层级 */
         max-width: 900px;
-        margin: 0 auto;
+        margin: 30px auto;
         padding: 30px;
-        background-color: #ffffff;
+        background-color: #f9f9f9;
         border-radius: 8px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         overflow: hidden;
@@ -32,23 +45,22 @@
         font-weight: 600;
         color: #3498db;
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
       }
 
       /* Section Headings */
       h2 {
         font-size: 1.6rem;
         color: #34495e;
-        margin-top: 30px;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 8px;
+        margin-top: 40px;
+        margin-bottom: 15px;
       }
 
       /* Paragraphs */
       p {
         font-size: 1rem;
-        margin-bottom: 15px;
-        color: #7f8c8d;
+        margin-bottom: 20px;
+        color: #4a4a4a;
       }
 
       /* List */
@@ -58,7 +70,7 @@
 
       ul li {
         font-size: 1rem;
-        color: #7f8c8d;
+        color: #4a4a4a;
         margin-bottom: 10px;
       }
 
@@ -76,20 +88,35 @@
       .exit-button {
         display: inline-block;
         margin-top: 30px;
-        padding: 12px 25px;
-        background-color: #e74c3c;
-        color: white;
-        font-size: 1.1rem;
-        font-weight: 600;
+        padding: 10px 20px;
+        background-color: #f8d7da; /* 淡紅色背景 */
+        color: #721c24; /* 深紅色文字 */
+        font-size: 1rem;
+        font-weight: 500;
         border: none;
         border-radius: 25px;
-        text-align: center;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       .exit-button:hover {
-        background-color: #c0392b;
+        background-color: #f5c6cb; /* 稍微加深的淡紅色 */
+        color: #491217; /* 更深的紅色文字 */
+      }
+
+      /* Close Icon */
+      .close-icon {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 2.5rem;
+        color: #7f8c8d;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .close-icon:hover {
+        color: #2c3e50;
       }
 
       /* Responsive Design */
@@ -119,15 +146,18 @@
   </head>
   <body>
     <div class="container">
-      <h1><span id="gameName"></span> - Help Files</h1>
+      <!-- Close Icon -->
+      <span class="close-icon" onclick="onClickClose()">&times;</span>
+
+      <h1><span name="gameName"></span></h1>
 
       <h2>Game Overview</h2>
       <p>
-        Welcome to **<span id="gameName"></span>**! This is a social and
-        engaging game designed to provide fun and entertainment. Enjoy a variety
-        of exciting experiences with surprises and rewards along the way! Please
-        remember that this game is for entertainment purposes only and does not
-        involve any real-money transactions.
+        Welcome to <strong><span name="gameName"></span></strong>! This is a
+        social and engaging game designed to provide fun and entertainment.
+        Enjoy a variety of exciting experiences with surprises and rewards along
+        the way! Please remember that this game is for entertainment purposes
+        only and does not involve any real-money transactions.
       </p>
 
       <h2>RTP (Return to Player)</h2>
@@ -136,21 +166,21 @@
         represents the percentage of gameplay activity that is theoretically
         returned to players as in-game rewards or progress over time. For
         example, if a game has an RTP of
-        <strong><span id="rtp"></span></strong>, it means that, on average,
+        <strong><span name="rtp"></span></strong>, it means that, on average,
         players can expect to experience
-        <strong><span id="rtp"></span>%</strong> of their gameplay contributions
-        returned as part of the game mechanics.
+        <strong><span name="rtp"></span>%</strong> of their gameplay
+        contributions returned as part of the game mechanics.
       </p>
       <p>
-        In **<span id="gameName"></span>**, the RTP is set at
-        <strong><span id="rtp"></span>%</strong>, reflecting the intended
+        In <strong><span name="gameName"></span></strong>, the RTP is set at
+        <strong><span name="rtp"></span>%</strong>, reflecting the intended
         balance of in-game rewards over time. It’s important to note that RTP is
         a theoretical value based on long-term gameplay data, and actual results
         may vary as outcomes are random and independent.
       </p>
       <p>
         To ensure fairness and randomness,
-        <strong>**<span id="gameName"></span>**</strong> uses a certified
+        <strong><span name="gameName"></span></strong> uses a certified
         <strong>Random Number Generator (RNG)</strong>. This technology
         guarantees that each result is random and independent, offering an
         engaging and equitable experience for all players.
@@ -158,9 +188,9 @@
 
       <h2>Responsible Gaming Tips</h2>
       <p>
-        While **<span id="gameName"></span>** is a fun and social game, we
-        encourage you to play responsibly. Here are some helpful tips for
-        maintaining a balanced gaming experience:
+        While <strong><span name="gameName"></span></strong> is a fun and social
+        game, we encourage you to play responsibly. Here are some helpful tips
+        for maintaining a balanced gaming experience:
       </p>
       <ul>
         <li>
@@ -178,8 +208,9 @@
         </li>
       </ul>
       <p>
-        We want you to enjoy **<span id="gameName"></span>** in a relaxed, fun,
-        and balanced environment.
+        We want you to enjoy
+        <strong><span name="gameName"></span></strong> in a relaxed, fun, and
+        balanced environment.
       </p>
 
       <h2>Game Support & Assistance</h2>
@@ -194,28 +225,38 @@
     </div>
   </body>
   <script>
-    function onClickClose() {
-      window.parent.postMessage(
-        { Type: "REQUEST", Name: "close_application" },
-        "*"
-      );
-    }
-    const RtpTable = {
-      10148550300: 50.01,
-      10148540300: 40.01,
-      10057640300: 99.99,
-      10057650300: 0.09,
+    const InfoTable = {
+      10118650300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+      10118640300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+      10148550300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+      10148540300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+      10057640300: { rtp: 50.01, displayName: "Candy Rush Wilds" },
+      10057650300: { rtp: 50.01, displayName: "Candy Rush Wilds" },
     };
     const urlParams = new URLSearchParams(window.location.search);
-    const gameNameEle = document.getElementsById("gameName");
-    const rtpEle = document.getElementsById("rtp");
+    const gameNameEle = document.getElementsByName("gameName");
+    const rtpEle = document.getElementsByName("rtp");
     gameNameEle &&
       gameNameEle.forEach((e) => {
-        e.textContent = urlParams.get("gameid");
+        e.textContent = InfoTable[urlParams.get("cshid")].displayName;
       });
     rtpEle &&
       rtpEle.forEach((e) => {
-        e.textContent = RtpTable[urlParams.get("cshid")];
+        e.textContent = InfoTable[urlParams.get("cshid")].rtp;
       });
+  </script>
+  <script>
+    function onClickClose() {
+      console.log("onClickClose");
+      if (window.top !== window.self) {
+        window.parent.postMessage(
+          { Type: "REQUEST", Name: "close_application" },
+          "*"
+        );
+      } else {
+        // no parent window, close the current window
+        window.close();
+      }
+    }
   </script>
 </html>
