@@ -1,12 +1,197 @@
 <!DOCTYPE html>
-<html style="opacity: 0.5">
-  <head> </head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><span id="gameName"></span> - Help Files</title>
+    <style>
+      /* General Styling */
+      body {
+        font-family: "Helvetica Neue", sans-serif;
+        background-color: #f4f4f9;
+        color: #2c3e50;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      /* Container for the Help Files */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* Header */
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: #3498db;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      /* Section Headings */
+      h2 {
+        font-size: 1.6rem;
+        color: #34495e;
+        margin-top: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 8px;
+      }
+
+      /* Paragraphs */
+      p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: #7f8c8d;
+      }
+
+      /* List */
+      ul {
+        padding-left: 20px;
+      }
+
+      ul li {
+        font-size: 1rem;
+        color: #7f8c8d;
+        margin-bottom: 10px;
+      }
+
+      /* Links */
+      a {
+        color: #3498db;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Exit Button Styling */
+      .exit-button {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 12px 25px;
+        background-color: #e74c3c;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 25px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .exit-button:hover {
+        background-color: #c0392b;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.4rem;
+        }
+
+        p,
+        ul li {
+          font-size: 0.95rem;
+        }
+
+        .exit-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
   <body>
-    <button onclick="onClickClose()">close</button>
-    <h1>moduleId: <span id="mid"></span></h1>
-    <h1>clientId: <span id="cid"></span></h1>
-    <h1>gameName: <span id="gameName"></span></h1>
-    <h1>RTP: <span id="rtp"></span></h1>
+    <div class="container">
+      <h1><span id="gameName"></span> - Help Files</h1>
+
+      <h2>Game Overview</h2>
+      <p>
+        Welcome to **<span id="gameName"></span>**! This is a social and
+        engaging game designed to provide fun and entertainment. Enjoy a variety
+        of exciting experiences with surprises and rewards along the way! Please
+        remember that this game is for entertainment purposes only and does not
+        involve any real-money transactions.
+      </p>
+
+      <h2>RTP (Return to Player)</h2>
+      <p>
+        <strong>RTP</strong> stands for <strong>Return to Player</strong>, which
+        represents the percentage of gameplay activity that is theoretically
+        returned to players as in-game rewards or progress over time. For
+        example, if a game has an RTP of
+        <strong><span id="rtp"></span></strong>, it means that, on average,
+        players can expect to experience
+        <strong><span id="rtp"></span>%</strong> of their gameplay contributions
+        returned as part of the game mechanics.
+      </p>
+      <p>
+        In **<span id="gameName"></span>**, the RTP is set at
+        <strong><span id="rtp"></span>%</strong>, reflecting the intended
+        balance of in-game rewards over time. It’s important to note that RTP is
+        a theoretical value based on long-term gameplay data, and actual results
+        may vary as outcomes are random and independent.
+      </p>
+      <p>
+        To ensure fairness and randomness,
+        <strong>**<span id="gameName"></span>**</strong> uses a certified
+        <strong>Random Number Generator (RNG)</strong>. This technology
+        guarantees that each result is random and independent, offering an
+        engaging and equitable experience for all players.
+      </p>
+
+      <h2>Responsible Gaming Tips</h2>
+      <p>
+        While **<span id="gameName"></span>** is a fun and social game, we
+        encourage you to play responsibly. Here are some helpful tips for
+        maintaining a balanced gaming experience:
+      </p>
+      <ul>
+        <li>
+          <strong>Set Time Limits</strong>: Set a daily or session-based time
+          limit to manage how long you play.
+        </li>
+        <li>
+          <strong>Take Breaks</strong>: Take regular breaks to keep the
+          experience enjoyable and avoid burnout.
+        </li>
+        <li>
+          <strong>Self-Limitations</strong>: If you feel you need to step away,
+          consider taking a break and setting a cooldown period to reset your
+          playtime.
+        </li>
+      </ul>
+      <p>
+        We want you to enjoy **<span id="gameName"></span>** in a relaxed, fun,
+        and balanced environment.
+      </p>
+
+      <h2>Game Support & Assistance</h2>
+      <p>
+        If you need assistance or have questions, feel free to check the in-game
+        help section or reach out to customer support. We’re here to help ensure
+        you have a smooth and enjoyable experience.
+      </p>
+
+      <!-- Exit Button -->
+      <button class="exit-button" onclick="onClickClose()">Leave Page</button>
+    </div>
   </body>
   <script>
     function onClickClose() {
@@ -22,10 +207,9 @@
       10057650300: 0.09,
     };
     const urlParams = new URLSearchParams(window.location.search);
-    document.getElementById("mid").textContent = urlParams.get("moduleid");
-    document.getElementById("cid").textContent = urlParams.get("clientid");
-    document.getElementById("gameName").textContent = urlParams.get("gameid");
-    document.getElementById("rtp").textContent =
-      RtpTable[urlParams.get("cshid")];
+    const gameNameEle = document.getElementById("gameName");
+    const rtpEle = document.getElementById("rtp");
+    gameNameEle && (gameNameEle.textContent = urlParams.get("gameid"));
+    rtpEle && (rtpEle.textContent = RtpTable[urlParams.get("cshid")]);
   </script>
 </html>
