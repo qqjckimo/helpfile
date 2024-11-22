@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><span name="gameName"></span> - Help Files</title>
+    <title data-type="gameName"></title>
     <style>
       /* General Styling */
       body {
@@ -212,14 +212,14 @@
   <body>
     <div class="container">
       <div class="header">
-        <span class="game-name" name="gameName"></span>
-        <span class="close-icon" onclick="onClickClose()">&times;</span>
+        <span class="game-name" data-type="gameName"></span>
+        <span class="close-icon" data-type="leavePage">&times;</span>
       </div>
 
       <h2>Game Overview</h2>
       <p>
-        Welcome to <strong><span name="gameName"></span></strong>! This is a
-        social and engaging game designed to provide fun and entertainment.
+        Welcome to <strong><span data-type="gameName"></span></strong>! This is
+        a social and engaging game designed to provide fun and entertainment.
         Enjoy a variety of exciting experiences with surprises and rewards along
         the way! Please remember that this game is for entertainment purposes
         only and does not involve any real-money transactions.
@@ -230,22 +230,20 @@
         <strong>RTP</strong> stands for <strong>Return to Player</strong>, which
         represents the percentage of gameplay activity that is theoretically
         returned to players as in-game rewards or progress over time. For
-        example, if a game has an RTP of
-        <strong><span name="rtp"></span></strong>, it means that, on average,
-        players can expect to experience
-        <strong><span name="rtp"></span>%</strong> of their gameplay
-        contributions returned as part of the game mechanics.
+        example, if a game has an RTP of 97.02, it means that, on average,
+        players can expect to experience 97.02% of their gameplay contributions
+        returned as part of the game mechanics.
       </p>
       <p>
-        In <strong><span name="gameName"></span></strong>, the RTP is set at
-        <strong><span name="rtp"></span>%</strong>, reflecting the intended
+        In <strong><span data-type="gameName"></span></strong>, the RTP is set
+        at <strong><span name="rtp"></span>%</strong>, reflecting the intended
         balance of in-game rewards over time. It’s important to note that RTP is
         a theoretical value based on long-term gameplay data, and actual results
         may vary as outcomes are random and independent.
       </p>
       <p>
         To ensure fairness and randomness,
-        <strong><span name="gameName"></span></strong> uses a certified
+        <strong><span data-type="gameName"></span></strong> uses a certified
         <strong>Random Number Generator (RNG)</strong>. This technology
         guarantees that each result is random and independent, offering an
         engaging and equitable experience for all players.
@@ -253,9 +251,9 @@
 
       <h2>Responsible Gaming Tips</h2>
       <p>
-        While <strong><span name="gameName"></span></strong> is a fun and social
-        game, we encourage you to play responsibly. Here are some helpful tips
-        for maintaining a balanced gaming experience:
+        While <strong><span data-type="gameName"></span></strong> is a fun and
+        social game, we encourage you to play responsibly. Here are some helpful
+        tips for maintaining a balanced gaming experience:
       </p>
       <ul>
         <li>
@@ -274,8 +272,8 @@
       </ul>
       <p>
         We want you to enjoy
-        <strong><span name="gameName"></span></strong> in a relaxed, fun, and
-        balanced environment.
+        <strong><span data-type="gameName"></span></strong> in a relaxed, fun,
+        and balanced environment.
       </p>
 
       <h2>Game Support & Assistance</h2>
@@ -286,42 +284,55 @@
       </p>
 
       <!-- Exit Button -->
-      <button class="exit-button" onclick="onClickClose()">Leave Page</button>
+      <button class="exit-button" data-type="leavePage">Leave Page</button>
     </div>
   </body>
   <script>
-    const InfoTable = {
-      10118650300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
-      10118640300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
-      10148550300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
-      10148540300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
-      10057640300: { rtp: 50.01, displayName: "Candy Rush Wilds" },
-      10057650300: { rtp: 50.01, displayName: "Candy Rush Wilds" },
-    };
-    const urlParams = new URLSearchParams(window.location.search);
-    const gameNameEle = document.getElementsByName("gameName");
-    const rtpEle = document.getElementsByName("rtp");
-    gameNameEle &&
-      gameNameEle.forEach((e) => {
-        e.textContent = InfoTable[urlParams.get("cshid")].displayName;
-      });
-    rtpEle &&
-      rtpEle.forEach((e) => {
-        e.textContent = InfoTable[urlParams.get("cshid")].rtp;
-      });
-  </script>
-  <script>
-    function onClickClose() {
-      console.log("onClickClose");
-      if (window.top !== window.self) {
-        window.parent.postMessage(
-          { Type: "REQUEST", Name: "close_application" },
-          "*"
-        );
-      } else {
-        // no parent window, close the current window
-        window.close();
+    // using IIFE avoid global variables conflict
+    (function () {
+      function _helpFiles() {
+        this.InfoTable = {
+          10118650300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+          10118640300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+          10148550300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+          10148540300: { rtp: 50.01, displayName: "Crazy Rich Tigers" },
+          10057640300: { rtp: 50.01, displayName: "Candy Rush Wilds" },
+          10057650300: { rtp: 50.01, displayName: "Candy Rush Wilds" },
+        };
       }
-    }
+
+      _helpFiles.prototype.init = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameNameEle = document.querySelectorAll("[data-type=gameName]");
+        const rtpEle = document.getElementsByName("rtp");
+        gameNameEle &&
+          gameNameEle.forEach((e) => {
+            e.textContent = this.InfoTable[urlParams.get("cshid")].displayName;
+          });
+        rtpEle &&
+          rtpEle.forEach((e) => {
+            e.textContent = this.InfoTable[urlParams.get("cshid")].rtp;
+          });
+
+        const closeBtns = document.querySelectorAll('[data-type="leavePage"]');
+        closeBtns.forEach(function (ele) {
+          ele.addEventListener("click", this.onClickClose);
+        });
+      };
+      _helpFiles.prototype.onClickClose = function () {
+        console.log("onClickClose");
+        if (window.top !== window.self) {
+          window.parent.postMessage(
+            { Type: "REQUEST", Name: "close_application" },
+            "*"
+          );
+        } else {
+          // no parent window, close the current window
+          window.close();
+        }
+      };
+      const helpFiles = new _helpFiles();
+      helpFiles.init();
+    })();
   </script>
 </html>
