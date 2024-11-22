@@ -315,8 +315,10 @@
           });
 
         const closeBtns = document.querySelectorAll('[data-type="leavePage"]');
+        console.log("add close click event");
+        const self = this;
         closeBtns.forEach(function (ele) {
-          ele.addEventListener("click", this.onClickClose);
+          ele.addEventListener("click", self.onClickClose);
         });
       };
       _helpFiles.prototype.onClickClose = function () {
