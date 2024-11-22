@@ -7,7 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js && docker build -t helpfile_host_prod -f dockerfile.prod .",
+    "build:up": "docker run -d -p 8080:80 helpfile_host_prod",
+    "test": "docker-compose up --build"
   },
   "repository": {
     "type": "git",

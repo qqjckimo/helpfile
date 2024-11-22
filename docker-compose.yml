@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_dev
+    ports:
+      - "8080:80" # 將本機 8080 映射到容器內的 80
+    volumes:
+      - ./docs:/usr/share/nginx/html # 動態掛載本地 docs 目錄
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf # 使用開發環境配置

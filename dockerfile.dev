@@ -1,0 +1,11 @@
+# Use the official NGINX image
+FROM nginx:latest
+
+# Set the working directory
+WORKDIR /usr/share/nginx/html
+
+# Copy the HTML files to the default static file directory of NGINX
+COPY docs /usr/share/nginx/html
+
+# Copy the NGINX configuration file (replace as needed)
+COPY nginx.dev.conf /etc/nginx/nginx.conf
