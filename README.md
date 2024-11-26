@@ -1,6 +1,6 @@
 # helpfile
 
-POC of the general helpfiles
+A general helpfiles page
 
 # Local testing
 
@@ -17,9 +17,17 @@ Publisher: Ritwick Dey
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 ```
 
-1. Go to the project's root folder and click the "Go Live" in the VS Code tool bar. Please check the README in the Live Server description for more details.
+1. Changing the cwd to the project's root folder and click the "Go Live" in the VS Code tool bar. Please check the README in the Live Server description for more details.
 
-1. The page should be able to open at the http://127.0.0.1:5500/
+1. The `index.html` should be able to view at the `http://127.0.0.1:5500/`.
+
+1. Add the cshid in to the qurey string to preview the result, for instance: `http://127.0.0.1:5500/?cshid=10118650300`.
+
+1. Run build command to preview the production version, go to `http://127.0.0.1:5500/docs/` to preview the result.
+
+```bash
+npm run build
+```
 
 ## Test the result in docker
 
@@ -29,21 +37,21 @@ Using docker + nginx to host the html
 npm run test
 ```
 
-Go to `http://localhost:8080` if the tes command run successfully.
+The `index.html` should be able to view at `http://localhost:8080` if the tes command run successfully.
 
 # Before push
 
-Run build command before push and release.
+!! Run build command before push and release.
 
 ```bash
 npm run build
 ```
 
-Using followin command to run the built container
+Using the following command to run the built container
 
 ```bash
 npm run build:up
 
 ```
 
-Go to `http://localhost:8080` to test the build result.
+The production version of `index.html` should be able to view `http://localhost:8080` to test the build result.

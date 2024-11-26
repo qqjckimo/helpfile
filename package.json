@@ -13,14 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qqjckimo/helpfile.git"
+    "url": "https://BigAsiaDevOps@dev.azure.com/BigAsiaDevOps/RCT.Game.Tool/_git/SweepstakesHelpfile"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/qqjckimo/helpfile/issues"
-  },
-  "homepage": "https://github.com/qqjckimo/helpfile#readme",
+  "homepage": "https://dev.azure.com/BigAsiaDevOps/RCT.Game.Tool/_git/SweepstakesHelpfile?path=/README.md",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "html-minifier-terser": "^7.2.0",
