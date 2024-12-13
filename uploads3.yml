@@ -20,7 +20,7 @@ variables:
 steps:
   # upload file to AWS S3
   - script: |
-      aws s3 cp $(Build.SourcesDirectory)/docs/ s3://${{ parameters.s3Bucket }}/docs/
+      aws s3 cp $(Build.SourcesDirectory)/docs/ s3://${{ parameters.s3Bucket }}/docs/ --recursive
     displayName: "Upload File to S3"
     env:
       AWS_ACCESS_KEY_ID: $(AwsAccessKeyId)
