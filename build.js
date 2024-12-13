@@ -4,6 +4,7 @@ const postcss = require("postcss");
 const autoprefixer = require("autoprefixer");
 const htmlMinifier = require("html-minifier-terser");
 const obfuscator = require("javascript-obfuscator");
+const SemVer = require("semver");
 
 // Original file and target file path
 const inputFile = path.resolve(__dirname, "index.html");
@@ -21,6 +22,8 @@ const outputFile = path.resolve(__dirname, "docs/index.html");
     // process inline JS
     html = await processInlineJS(html);
 
+    html = updateHtmlVersion(html);
+
     // Minify HTML file
     const minifiedHtml = await htmlMinifier.minify(html, {
       collapseWhitespace: true,
@@ -37,6 +40,9 @@ const outputFile = path.resolve(__dirname, "docs/index.html");
       fs.mkdirSync(outputDir, { recursive: true });
     }
     fs.writeFileSync(outputFile, minifiedHtml, "utf8");
+
+    // process version string
+    updatePkgVersion();
 
     console.log("Build completed successfully!");
   } catch (error) {
@@ -86,4 +92,35 @@ async function processInlineJS(html) {
   }
 
   return html;
+}
+
+function _getNextVersoinStr(isDebug) {
+  let pkgFile = path.join(__dirname, "package.json");
+  const pkgJson = require(pkgFile);
+  let curVer = pkgJson.version;
+  if (isDebug) {
+    if (curVer.indexOf("-alpha.") < 0) {
+      curVer += "-alpha.0";
+    }
+    return SemVer.inc(curVer, "prerelease");
+  } else {
+    return SemVer.inc(curVer, "patch");
+  }
+}
+
+function updatePkgVersion(isDebug) {
+  function _updater(file) {
+    let nextVer = _getNextVersoinStr(isDebug);
+    const pkgFile = path.join(__dirname, file);
+    const pkgJson = require(pkgFile);
+    pkgJson.version = nextVer;
+    fs.writeFileSync(pkgFile, JSON.stringify(pkgJson, null, 2));
+  }
+  _updater("package.json");
+  _updater("package-lock.json");
+}
+
+function updateHtmlVersion(html) {
+  let nextVer = _getNextVersoinStr();
+  return html.replace(/{{version}}/g, nextVer);
 }

@@ -1,6 +1,6 @@
 {
   "name": "helpfile",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "POC of the general helpfiles",
   "main": "index.js",
   "directories": {
@@ -24,6 +24,7 @@
     "html-minifier-terser": "^7.2.0",
     "javascript-obfuscator": "^4.1.1",
     "postcss": "^8.4.49",
-    "postcss-cli": "^11.0.0"
+    "postcss-cli": "^11.0.0",
+    "semver": "^7.6.3"
   }
 }
