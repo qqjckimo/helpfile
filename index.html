@@ -315,24 +315,8 @@
       }
 
       _helpFiles.prototype.init = function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const gameNameEle = document.querySelectorAll("[data-type=gameName]");
-        const rtpEle = document.getElementsByName("rtp");
-        gameNameEle &&
-          gameNameEle.forEach((e) => {
-            e.textContent = this.InfoTable[urlParams.get("cshid")].displayName;
-          });
-        rtpEle &&
-          rtpEle.forEach((e) => {
-            e.textContent = this.InfoTable[urlParams.get("cshid")].rtp;
-          });
-
-        const closeBtns = document.querySelectorAll('[data-type="leavePage"]');
-        console.log("add close click event");
-        const self = this;
-        closeBtns.forEach(function (ele) {
-          ele.addEventListener("click", self.onClickClose);
-        });
+        this._initClickEvents();
+        this._initDisplay();
       };
       _helpFiles.prototype.onClickClose = function () {
         console.log("onClickClose");
@@ -345,6 +329,37 @@
           // no parent window, close the current window
           window.close();
         }
+      };
+      _helpFiles.prototype._initDisplay = function () {
+        console.log("init display");
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has("cshid")) {
+          console.error("cshid is not found in the query string");
+          return;
+        }
+        if (!this.InfoTable[urlParams.get("cshid")]) {
+          console.error("cshid is not found in the InfoTable");
+          return;
+        }
+        const gameNameEle = document.querySelectorAll("[data-type=gameName]");
+        const rtpEle = document.getElementsByName("rtp");
+        gameNameEle &&
+          gameNameEle.forEach((e) => {
+            e.textContent = this.InfoTable[urlParams.get("cshid")].displayName;
+          });
+        rtpEle &&
+          rtpEle.forEach((e) => {
+            e.textContent = this.InfoTable[urlParams.get("cshid")].rtp;
+          });
+      };
+
+      _helpFiles.prototype._initClickEvents = function () {
+        console.log("add close click event");
+        const closeBtns = document.querySelectorAll('[data-type="leavePage"]');
+        const self = this;
+        closeBtns.forEach(function (ele) {
+          ele.addEventListener("click", self.onClickClose);
+        });
       };
       const helpFiles = new _helpFiles();
       helpFiles.init();

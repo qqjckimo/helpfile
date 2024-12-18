@@ -1,6 +1,6 @@
 {
   "name": "helpfile",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "POC of the general helpfiles",
   "main": "index.js",
   "directories": {
