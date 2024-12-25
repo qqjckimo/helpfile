@@ -33,11 +33,19 @@ npm run build
 
 Using docker + nginx to host the html
 
+1. Build docker image
+
+```bash
+npm run build:nDocker
+```
+
+1. Test the build result
+
 ```bash
 npm run test
 ```
 
-The `index.html` should be able to view at `http://localhost:8080` if the tes command run successfully.
+The `index.html` should be able to view at `http://localhost:8080` if the test command run successfully.
 
 # Before push
 
@@ -47,7 +55,7 @@ The `index.html` should be able to view at `http://localhost:8080` if the tes co
 npm run build
 ```
 
-Using the following command to run the built container
+Using the following command to run the built container and preview the build result
 
 ```bash
 npm run build:up

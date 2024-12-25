@@ -109,15 +109,15 @@ function _getNextVersoinStr(isDebug) {
 }
 
 function updatePkgVersion(isDebug) {
-  function _updater(file) {
-    let nextVer = _getNextVersoinStr(isDebug);
+  function _updater(file, nextVer) {
     const pkgFile = path.join(__dirname, file);
     const pkgJson = require(pkgFile);
     pkgJson.version = nextVer;
     fs.writeFileSync(pkgFile, JSON.stringify(pkgJson, null, 2));
   }
-  _updater("package.json");
-  _updater("package-lock.json");
+  const nextVer = _getNextVersoinStr(isDebug);
+  _updater("package.json", nextVer);
+  _updater("package-lock.json", nextVer);
 }
 
 function updateHtmlVersion(html) {
