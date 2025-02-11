@@ -3,8 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="data:;base64,=" />
     <title data-type="gameName"></title>
+    <link rel="icon" href="data:;base64,=" />
+    <!-- use preload to preload the json file  -->
+    <link
+      href="assets/info.json?v={{version}}"
+      rel="preload"
+      as="fetch"
+      crossorigin="anonymous"
+    />
     <style>
       /* General Styling */
       body {
@@ -255,7 +262,19 @@
         every result is entirely random and unbiased. This technology creates a
         fair and engaging experience for all players.
       </p>
-
+      <h2>Game Persistence</h2>
+      <p>
+        If you leave a game before completing a or bonus coin round, your
+        progress may be saved and resumed when you return. Once a game round is
+        completed, results are final and cannot be altered.
+      </p>
+      <h2>Achievements & Progression</h2>
+      <p>
+        For games with achievements, levels, or progression systems, your
+        progress is typically saved and will be available when you return.
+        However, some limited-time events or rewards may expire if not collected
+        within the specified timeframe.
+      </p>
       <h2>Responsible Gaming Tips</h2>
       <p>
         While <strong><span data-type="gameName">{{gameName}}</span></strong> is
@@ -302,20 +321,21 @@
     (function () {
       function _helpFiles() {
         this.InfoTable = {
-          10135250300: { rtp: 94.24, displayName: "Almighty Zeus Wilds" },
-          10135240300: { rtp: 94.24, displayName: "Almighty Zeus Wilds" },
-          10127450300: { rtp: 94.24, displayName: "Almighty Zeus Empire" },
-          10127440300: { rtp: 94.24, displayName: "Almighty Zeus Empire" },
-          10148650300: { rtp: 94.12, displayName: "Almighty Athena Empire" },
-          10148640300: { rtp: 94.12, displayName: "Almighty Athena Empire" },
-          10210050300: { rtp: 94.24, displayName: "Gold Infinity" },
-          10210040300: { rtp: 94.24, displayName: "Gold Infinity" },
+          // cshid: [rtp, displayName]
         };
       }
 
       _helpFiles.prototype.init = function () {
         this._initClickEvents();
-        this._initDisplay();
+        // using the same url as the preload to fetch the json file
+        const infoUrl = "assets/info.json?v={{version}}";
+        fetch(infoUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            this.InfoTable = data;
+            this._initDisplay();
+          });
       };
       _helpFiles.prototype.onClickClose = function () {
         console.log("onClickClose");
@@ -333,22 +353,22 @@
         console.log("init display");
         const urlParams = new URLSearchParams(window.location.search);
         if (!urlParams.has("cshid")) {
-          console.error("cshid is not found in the query string");
+          console.warn("cshid is not found in the query string");
           return;
         }
         if (!this.InfoTable[urlParams.get("cshid")]) {
-          console.error("cshid is not found in the InfoTable");
+          console.warn("cshid is not found in the InfoTable");
           return;
         }
         const gameNameEle = document.querySelectorAll("[data-type=gameName]");
         const rtpEle = document.getElementsByName("rtp");
         gameNameEle &&
           gameNameEle.forEach((e) => {
-            e.textContent = this.InfoTable[urlParams.get("cshid")].displayName;
+            e.textContent = this.InfoTable[urlParams.get("cshid")][1];
           });
         rtpEle &&
           rtpEle.forEach((e) => {
-            e.textContent = this.InfoTable[urlParams.get("cshid")].rtp;
+            e.textContent = this.InfoTable[urlParams.get("cshid")][0];
           });
       };
 
@@ -360,6 +380,7 @@
           ele.addEventListener("click", self.onClickClose);
         });
       };
+      _helpFiles.prototype._initData = function () {};
       const helpFiles = new _helpFiles();
       helpFiles.init();
     })();

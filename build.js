@@ -7,12 +7,16 @@ const obfuscator = require("javascript-obfuscator");
 const SemVer = require("semver");
 
 // Original file and target file path
-const inputFile = path.resolve(__dirname, "index.html");
+const inputFile = path.resolve(__dirname, "src/index.html");
 const outputFile = path.resolve(__dirname, "docs/index.html");
+const isDebug = process.argv.includes("--debug");
+const nextVer = _getNextVersoinStr(isDebug);
 
 // Main processing function
 (async () => {
   try {
+    // get isDebug from command line --debug
+
     // Read the original HTML file
     let html = fs.readFileSync(inputFile, "utf8");
 
@@ -40,6 +44,25 @@ const outputFile = path.resolve(__dirname, "docs/index.html");
       fs.mkdirSync(outputDir, { recursive: true });
     }
     fs.writeFileSync(outputFile, minifiedHtml, "utf8");
+
+    // copy assets
+    const assetsDir = path.resolve(__dirname, "src/assets");
+    const outputAssetsDir = path.resolve(__dirname, "docs/assets");
+    // outputAssetsDir 不存在时，创建目录
+    if (!fs.existsSync(outputAssetsDir)) {
+      fs.mkdirSync(outputAssetsDir, { recursive: true });
+    } else {
+      // 移除重新建立
+      fs.rmSync(outputAssetsDir, { recursive: true });
+      fs.mkdirSync(outputAssetsDir, { recursive: true });
+    }
+
+    fs.readdirSync(assetsDir).forEach((file) => {
+      fs.copyFileSync(
+        path.join(assetsDir, file),
+        path.join(outputAssetsDir, file)
+      );
+    });
 
     // process version string
     updatePkgVersion();
@@ -79,12 +102,12 @@ async function processInlineJS(html) {
     // 混淆 JS
     const obfuscatedJs = obfuscator
       .obfuscate(jsContent, {
-        compact: true,
-        controlFlowFlattening: true,
-        deadCodeInjection: true,
-        debugProtection: true,
+        compact: !isDebug,
+        controlFlowFlattening: !isDebug,
+        deadCodeInjection: !isDebug,
+        debugProtection: !isDebug,
         debugProtectionInterval: 2000,
-        disableConsoleOutput: true,
+        disableConsoleOutput: !isDebug,
       })
       .getObfuscatedCode();
 
@@ -108,19 +131,18 @@ function _getNextVersoinStr(isDebug) {
   }
 }
 
-function updatePkgVersion(isDebug) {
-  function _updater(file, nextVer) {
+function updatePkgVersion() {
+  function _updater(file) {
     const pkgFile = path.join(__dirname, file);
     const pkgJson = require(pkgFile);
     pkgJson.version = nextVer;
     fs.writeFileSync(pkgFile, JSON.stringify(pkgJson, null, 2));
   }
-  const nextVer = _getNextVersoinStr(isDebug);
-  _updater("package.json", nextVer);
-  _updater("package-lock.json", nextVer);
+
+  _updater("package.json");
+  _updater("package-lock.json");
 }
 
 function updateHtmlVersion(html) {
-  let nextVer = _getNextVersoinStr();
   return html.replace(/{{version}}/g, nextVer);
 }
